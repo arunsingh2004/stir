@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Twitter Trends</title>
+  </head>
+  <body>
+    <h1>Twitter Trends</h1>
+    <button onclick="fetchTrends()">Click here to run the script</button>
+    <div id="results"></div>
+
+    <script>
+      async function fetchTrends() {
+        const response = await fetch("/run-script");
+        const data = await response.json();
+
+        document.getElementById("results").innerHTML = `
+                <p>These are the most happening topics as on ${new Date(
+                  data.timestamp
+                ).toLocaleString()}</p>
+                <ul>
+                    <li>${data.trend1}</li>
+                    <li>${data.trend2}</li>
+                    <li>${data.trend3}</li>
+                    <li>${data.trend4}</li>
+                    <li>${data.trend5}</li>
+                </ul>
+                <p>The IP address used for this query was ${
+                  data.ip_address
+                }.</p>
+                <pre>${JSON.stringify(data, null, 2)}</pre>
+            `;
+      }
+    </script>
+  </body>
+</html>
